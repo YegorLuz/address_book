@@ -1,0 +1,79 @@
+.contact-list {
+    border-collapse: collapse;
+    border-spacing: 0;
+    min-width: 840px;
+
+    td, th {
+        border: 1px solid #ccc;
+        padding: 10px 30px;
+        font-size: 16px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #333;
+        text-align: center;
+    }
+
+    th {
+        position: relative;
+        text-transform: uppercase;
+        font-weight: 600;
+        background: #357ea5;
+        color: #fff;
+
+        &:not(:last-child) {
+            cursor: pointer;
+        }
+
+        &.arrow {
+            &:after {
+                content: " ";
+                position: absolute;
+                top: 17px;
+                right: 5px;
+                width: 0;
+                height: 0;
+                border-top: 5px solid #fff;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+            }
+
+            &.-up:after {
+                border-top: 0;
+                border-bottom: 5px solid #fff;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+            }
+        }
+    }
+
+    .edit-link {
+        margin-right: 15px;
+        background: #4d90b7;
+        padding: 8px 20px;
+        cursor: pointer;
+
+        &:hover {
+            background: #397ca3;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+
+            &:visited {
+                color: #fff;
+            }
+        }
+    }
+
+    .delete-link {
+        background: #b74d4d;
+        color: #fff;
+        padding: 8px 20px;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+            background: #9e3737;
+        }
+    }
+}

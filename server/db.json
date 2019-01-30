@@ -1,9 +1,46 @@
 {
-    "posts": [
-        { "id": 1, "title": "json-server", "author": "typicode" }
-    ],
-    "comments": [
-        { "id": 1, "body": "some comment", "postId": 1 }
-    ],
-    "profile": { "name": "typicode" }
+  "contacts": [
+    {
+      "id": 1,
+      "name": "John",
+      "email": "john@example.com",
+      "phone": "380631111111"
+    },
+    {
+      "id": 2,
+      "name": "Ann",
+      "email": "ann@example.com",
+      "phone": "380632222222"
+    },
+    {
+      "id": 3,
+      "name": "George",
+      "email": "george@example.com",
+      "phone": "380633333333"
+    },
+    {
+      "name": "Nick",
+      "email": "nick@example.com",
+      "phone": "380634444444",
+      "id": 4
+    },
+    {
+      "id": 5,
+      "name": "Jane",
+      "email": "jane@example.com",
+      "phone": "380635555555"
+    },
+    {
+      "name": "Phill",
+      "email": "phill@example.com",
+      "phone": "380636666666",
+      "id": 6
+    },
+    {
+      "name": "Alan",
+      "email": "alan@example@com",
+      "phone": "380637777777",
+      "id": 7
+    }
+  ]
 }
