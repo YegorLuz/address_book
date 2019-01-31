@@ -6,7 +6,7 @@ export function getContacts () {
     };
 }
 
-export function addContact (data) {
+export function addContact (data: object) {
     return {
         type: CONTACT + SAVE,
         payload: {
@@ -15,7 +15,7 @@ export function addContact (data) {
     };
 }
 
-export function updateContact (data) {
+export function updateContact (data: object) {
     return {
         type: CONTACT + UPDATE,
         payload: {
@@ -24,7 +24,7 @@ export function updateContact (data) {
     };
 }
 
-export function deleteContact (id) {
+export function deleteContact (id: number | string) {
     return {
         type: CONTACT + DELETE,
         payload: {

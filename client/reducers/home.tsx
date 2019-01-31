@@ -5,7 +5,14 @@ const defaultState = Map({
     contacts: List([]),
 });
 
-export default (state = defaultState, action) => {
+type actionType = {
+    type: string,
+    payload: {
+        contacts: Array<object>,
+    },
+};
+
+export default (state = defaultState, action: actionType) => {
     const { type, payload } = action;
 
     switch(type) {

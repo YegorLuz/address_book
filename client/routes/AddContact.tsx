@@ -1,12 +1,26 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router';
 import Form from '../containers/Form';
 import { addContact } from '../actions/';
 
-class AddContact extends Component {
-    constructor(props) {
+type TState = {
+    name: string,
+    email: string,
+    phone: string,
+};
+
+type IAction = {
+    saveContact: (data: TState) => void,
+}
+
+type IProps = RouteComponentProps & {};
+
+class AddContact extends React.Component<IProps & IAction> {
+    state: TState
+
+    constructor(props: IProps & IAction) {
         super(props);
 
         this.state = {
@@ -19,7 +33,7 @@ class AddContact extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onChange (value, name) {
+    onChange (value: string, name?: string) {
         this.setState({
             [name]: value,
         });
@@ -51,16 +65,10 @@ class AddContact extends Component {
     }
 }
 
-AddContact.propTypes = {
-    saveContact: PropTypes.func.isRequired,
-};
+const mapStateToProps = () => ({});
 
-const mapStateToProps = state => ({
-
-});
-
-const mapDispatchToProps = dispatch => ({
-    saveContact: data => dispatch(addContact(data)),
+const mapDispatchToProps = (dispatch: React.Dispatch<any>) => ({
+    saveContact: (data: TState) => dispatch(addContact(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddContact);

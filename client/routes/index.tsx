@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Loadable from 'react-loadable';
+import * as Loadable from 'react-loadable';
 import ScreenLoader from '../components/ScreenLoader';
 import AppContainer from '../containers';
 
-const LoadableComponent = path => Loadable({
+const LoadableComponent = (path: string) => Loadable({
     loader: () => import(`./${path}`),
     loading: ScreenLoader,
     render (loaded, props) {

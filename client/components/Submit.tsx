@@ -1,14 +1,18 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-class Submit extends PureComponent {
-    constructor(props) {
+type TProps = {
+    text: string,
+    onSubmit: () => void,
+};
+
+class Submit extends React.PureComponent<TProps> {
+    constructor(props: TProps) {
         super(props);
 
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onSubmit (event) {
+    onSubmit (event: React.MouseEvent) {
         event.preventDefault();
         this.props.onSubmit();
     }
@@ -27,10 +31,5 @@ class Submit extends PureComponent {
         );
     }
 }
-
-Submit.propTypes = {
-    text: PropTypes.string.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-};
 
 export default Submit;

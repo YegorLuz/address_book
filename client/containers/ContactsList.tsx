@@ -1,11 +1,22 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import classNames from 'classnames';
 import ListRow from '../components/ListRow';
 import '../styles/list.scss';
+import { List, Map } from 'immutable';
 
-class ContactsList extends Component {
-    constructor (props) {
+type TProps = {
+    data: List<Map<string, any>>,
+    filter: string,
+    onDelete: (id: string) => void,
+};
+
+type TState = {
+    up: boolean,
+    sorted: string,
+};
+
+class ContactsList extends React.Component<TProps> {
+    constructor (props: TProps) {
         super(props);
 
         this.state = {
@@ -16,9 +27,8 @@ class ContactsList extends Component {
         this.onSort = this.onSort.bind(this);
     }
 
-    onSort (event) {
-        const { up, sorted } = this.state;
-        const name = event.target.getAttribute('name');
+    onSort (name: string) {
+        const { up, sorted } = this.state as TState;
 
         if (sorted === name) {
             this.setState({
@@ -34,7 +44,7 @@ class ContactsList extends Component {
 
     render () {
         const { data, filter } = this.props;
-        const { sorted, up } = this.state;
+        const { sorted, up } = this.state as TState;
 
         if (data.size) {
             const list = data
@@ -67,30 +77,26 @@ class ContactsList extends Component {
                     <thead>
                         <tr>
                             <th
-                                name='id'
                                 className={classNames({ arrow: sorted === 'id' }, { '-up': up })}
-                                onClick={this.onSort}
+                                onClick={() => this.onSort('id')}
                             >
                                 ID
                             </th>
                             <th
-                                name='name'
                                 className={classNames({ arrow: sorted === 'name' }, { '-up': up })}
-                                onClick={this.onSort}
+                                onClick={() => this.onSort('name')}
                             >
                                 Name
                             </th>
                             <th
-                                name='email'
                                 className={classNames({ arrow: sorted === 'email' }, { '-up': up })}
-                                onClick={this.onSort}
+                                onClick={() => this.onSort('email')}
                             >
                                 Email
                             </th>
                             <th
-                                name='phone'
                                 className={classNames({ arrow: sorted === 'phone' }, { '-up': up })}
-                                onClick={this.onSort}
+                                onClick={() => this.onSort('phone')}
                             >
                                 Phone
                             </th>
@@ -107,11 +113,5 @@ class ContactsList extends Component {
         return null;
     }
 }
-
-ContactsList.propTypes = {
-    data: PropTypes.object.isRequired,
-    filter: PropTypes.string.isRequired,
-    onDelete: PropTypes.func.isRequired,
-};
 
 export default ContactsList;

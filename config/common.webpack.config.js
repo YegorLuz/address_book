@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = dirName => ({
 	entry: {
-		app: ['babel-polyfill', './client/app.js'],
+		app: ['./client/app.tsx'],
 		vendor: Object.keys(require(`${dirName}/package`).dependencies),
 	},
 
@@ -42,17 +42,7 @@ module.exports = dirName => ({
 					path.join(dirName, 'node_modules'),
 				],
 			},
-			{
-				test: /\.jsx?$/,
-				use: ['babel-loader', 'eslint-loader'],
-				include: [
-					path.join(dirName, 'client'),
-				],
-				exclude: [
-					path.join(dirName, 'node_modules'),
-				],
-			},
-			// { enforce: "pre", test: /\.jsx?$/, loader: 'source-map-loader' },
+			{ enforce: "pre", test: /\.jsx?$/, loader: 'source-map-loader' },
 			{
 				test: /\.scss$/,
 				exclude: [

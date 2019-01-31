@@ -1,13 +1,28 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { List, Map } from 'immutable';
 import Filter from '../components/Filter';
 import ContactsList from '../containers/ContactsList';
 import { getContacts, deleteContact } from '../actions/';
 
-class Home extends Component {
-    constructor(props) {
+type TState = {
+    filter: string,
+};
+
+type IAction = {
+    getContacts: () => void,
+    deleteContact: (id: string) => void,
+}
+
+type IProps = {
+    contacts: List<Map<string, any>>,
+}
+
+class Home extends React.Component<IProps & IAction> {
+    state: TState
+
+    constructor(props: IProps & IAction) {
         super(props);
 
         this.state = {
@@ -21,7 +36,7 @@ class Home extends Component {
         this.props.getContacts();
     }
 
-    onFilter (value) {
+    onFilter (value: string) {
         this.setState({
             filter: value,
         });
@@ -49,18 +64,13 @@ class Home extends Component {
     }
 }
 
-Home.propTypes = {
-    contacts: PropTypes.object.isRequired,
-    getContacts: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state: { home: Map<string, any> }) : IProps => ({
     contacts: state.home.get('contacts'),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: React.Dispatch<any>) => ({
     getContacts: () => dispatch(getContacts()),
-    deleteContact: id => dispatch(deleteContact(id)),
+    deleteContact: (id: string) => dispatch(deleteContact(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

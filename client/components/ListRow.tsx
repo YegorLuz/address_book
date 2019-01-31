@@ -1,15 +1,21 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-class ListRow extends PureComponent {
-    constructor(props) {
+type TProps = {
+    data: {
+        get: (key: string) => any,
+    },
+    onDelete: (id: string) => void,
+};
+
+class ListRow extends React.PureComponent<TProps> {
+    constructor(props: TProps) {
         super(props);
 
         this.onDelete = this.onDelete.bind(this);
     }
 
-    onDelete (event) {
+    onDelete (event: React.MouseEvent) {
         event.preventDefault();
         const { data } = this.props;
 
@@ -35,10 +41,5 @@ class ListRow extends PureComponent {
         );
     }
 }
-
-ListRow.propTypes = {
-    data: PropTypes.object.isRequired,
-    onDelete: PropTypes.func.isRequired,
-};
 
 export default ListRow;

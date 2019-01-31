@@ -1,12 +1,32 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import Input from '../components/Input';
 import Submit from '../components/Submit';
 import { validateName, validateEmail, validatePhone } from '../utils/';
 import '../styles/form.scss';
 
-class Form extends PureComponent {
-    constructor(props) {
+type TProps = {
+    name: string,
+    email: string,
+    phone: string,
+    submitButtonText?: string,
+    onSubmit: () => void,
+    onChange: (value: string, name?: string) => void,
+};
+
+type TState = {
+    isNameValid: string,
+    isEmailValid: string,
+    isPhoneValid: string,
+};
+
+class Form extends React.PureComponent<TProps> {
+    static defaultProps = {
+        submitButtonText: 'Save',
+    }
+
+    state : TState;
+    
+    constructor(props: TProps) {
         super(props);
 
         this.state = {
@@ -21,7 +41,7 @@ class Form extends PureComponent {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onValidateName (name) {
+    onValidateName (name: string) {
         const { isNameValid } = validateName(name);
 
         if (this.state.isNameValid !== isNameValid) {
@@ -31,7 +51,7 @@ class Form extends PureComponent {
         }
     }
 
-    onValidateEmail (email) {
+    onValidateEmail (email: string) {
         const { isEmailValid } = validateEmail(email);
 
         if (this.state.isEmailValid !== isEmailValid) {
@@ -41,7 +61,7 @@ class Form extends PureComponent {
         }
     }
 
-    onValidatePhone (phone) {
+    onValidatePhone (phone: string) {
         const { isPhoneValid } = validatePhone(phone);
 
         if (this.state.isPhoneValid !== isPhoneValid) {
@@ -54,7 +74,11 @@ class Form extends PureComponent {
     onSubmit () {
         const { name, email, phone } = this.props;
         const { isNameValid, isEmailValid, isPhoneValid } = this.state;
-        const validationData = {};
+        const validationData : {
+            isNameValid?: string,
+            isEmailValid?: string,
+            isPhoneValid?: string,
+        } = {};
 
         if (!name) {
             validationData.isNameValid = 'Name is required';
@@ -111,18 +135,5 @@ class Form extends PureComponent {
         );
     }
 }
-
-Form.defaultProps = {
-    submitButtonText: 'Save',
-};
-
-Form.propTypes = {
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
-    submitButtonText: PropTypes.string,
-    onSubmit: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
-};
 
 export default Form;

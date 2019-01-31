@@ -1,14 +1,30 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-class Input extends PureComponent {
-    constructor(props) {
+type TProps = {
+    type?: string,
+    name?: string,
+    placeholder?: string,
+    validationMessage?: string,
+    value: string,
+    onChange: (value: string, name?: string) => void,
+    onValidate?: (value: string) => void,
+};
+
+class Input extends React.PureComponent<TProps> {
+    static defaultProps = {
+        type: 'text',
+        name: '',
+        placeholder: '',
+        validationMessage: '',
+    }
+
+    constructor(props: TProps) {
         super(props);
 
         this.onChange = this.onChange.bind(this);
     }
 
-    onChange (event) {
+    onChange (event: React.BaseSyntheticEvent) {
         const { name } = this.props;
         const value = event.target.value;
 
@@ -34,22 +50,5 @@ class Input extends PureComponent {
         );
     }
 }
-
-Input.defaultProps = {
-    type: 'text',
-    name: '',
-    placeholder: '',
-    validationMessage: '',
-};
-
-Input.propTypes = {
-    type: PropTypes.string,
-    name: PropTypes.string,
-    placeholder: PropTypes.string,
-    value: PropTypes.string.isRequired,
-    validationMessage: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-    onValidate: PropTypes.func,
-};
 
 export default Input;

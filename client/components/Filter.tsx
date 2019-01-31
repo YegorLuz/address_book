@@ -1,10 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import Input from './Input';
 import '../styles/form.scss';
 import '../styles/filter.scss';
 
-const Filter = props => (
+type IProps = {
+    value: string,
+    onChange: (value: string, name?: string) => void
+};
+
+const Filter = (props: IProps) => (
     <div className="filter">
         <Input
             placeholder='filter'
@@ -13,10 +17,5 @@ const Filter = props => (
         />
     </div>
 );
-
-Filter.propTypes = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-};
 
 export default Filter;
