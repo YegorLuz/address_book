@@ -16,6 +16,7 @@ type TState = {
 };
 
 class ContactsList extends React.Component<TProps> {
+    state: TState
     constructor (props: TProps) {
         super(props);
 
@@ -28,7 +29,7 @@ class ContactsList extends React.Component<TProps> {
     }
 
     onSort (name: string) {
-        const { up, sorted } = this.state as TState;
+        const { up, sorted } = this.state;
 
         if (sorted === name) {
             this.setState({
@@ -44,7 +45,7 @@ class ContactsList extends React.Component<TProps> {
 
     render () {
         const { data, filter } = this.props;
-        const { sorted, up } = this.state as TState;
+        const { sorted, up } = this.state;
 
         if (data.size) {
             const list = data
