@@ -43,36 +43,41 @@ class ContactsList extends React.Component<TProps> {
         }
     }
 
-    render () {
+    renderList () {
         const { data, filter } = this.props;
         const { sorted, up } = this.state;
 
+        return data
+            .filter(item => {
+                if (!filter) {
+                    return true;
+                }
+
+                return item.get('name').indexOf(filter) >= 0
+                    || item.get('email').indexOf(filter) >= 0
+                    || item.get('phone').indexOf(filter) >= 0;
+            })
+            .sort((item1, item2) => {
+                const value1 = sorted === 'id' ? parseInt(item1.get(sorted)) : item1.get(sorted);
+                const value2 = sorted === 'id' ? parseInt(item2.get(sorted)) : item2.get(sorted);
+                if (up) {
+                    return value1 > value2 ? -1 : 1;
+                }
+
+                return value1 < value2 ? -1 : 1;
+            })
+            .map(item => <ListRow
+                key={item.get('id')}
+                data={item}
+                onDelete={this.props.onDelete}
+            />);
+    }
+
+    render () {
+        const { data } = this.props;
+        const { sorted, up } = this.state;
+
         if (data.size) {
-            const list = data
-                .filter(item => {
-                    if (!filter) {
-                        return true;
-                    }
-
-                    return item.get('name').indexOf(filter) >= 0
-                        || item.get('email').indexOf(filter) >= 0
-                        || item.get('phone').indexOf(filter) >= 0;
-                })
-                .sort((item1, item2) => {
-                    const value1 = sorted === 'id' ? parseInt(item1.get(sorted)) : item1.get(sorted);
-                    const value2 = sorted === 'id' ? parseInt(item2.get(sorted)) : item2.get(sorted);
-                    if (up) {
-                        return value1 > value2 ? -1 : 1;
-                    }
-
-                    return value1 < value2 ? -1 : 1;
-                })
-                .map(item => <ListRow
-                    key={item.get('id')}
-                    data={item}
-                    onDelete={this.props.onDelete}
-                />);
-
             return (
                 <table className="contact-list">
                     <thead>
@@ -105,7 +110,7 @@ class ContactsList extends React.Component<TProps> {
                         </tr>
                     </thead>
                     <tbody>
-                        {list}
+                        {this.renderList()}
                     </tbody>
                 </table>
             );
